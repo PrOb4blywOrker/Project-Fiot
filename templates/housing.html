@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Пошук житла</title>
+{% endblock %}
+{% block body %}
+<form class="decor" action="" method="post">
+    <div class="form-inner">
+        <label for="city">Виберіть місто</label>
+        <input type="text" name="city">
+        <label for="checkin_date">Заїзд</label>
+        <input type="date" name="checkin_date">
+        <label for="checkout_date">Від'їзд</label>
+        <input type="date" name="checkout_date">
+        <label for="adults_number">Кількість дорослих</label>
+        <input type="number" name="adults_number">
+        <label for="children_number">Кількість дітей</label>
+        <input type="number" name="children_number">
+        <input type="submit" value="Пошук">
+    </div>
+</form>
+{% if variants_hotels|length > 0 %}
+<div class="result_search">
+    {% for i in range(10) %}
+    <details>
+        <summary>Варіант № {{ i+1 }}</summary>
+        <div style="width: 100%; display: inline-block; height: 45vh; background-color: #f69a73">
+            <div style="width: 340px; height: 240px;   margin-left: 32%; border-radius: 10px">
+                <figure>
+                    <img src={{variants_hotels[i]['max_photo_url']}}
+                         alt="На жаль фото не провантажилося, але ви можете перейти за посиланням в описі">
+                    <figcaption> {{variants_hotels[i]['accommodation_type_name']}}
+                        {{variants_hotels[i]['hotel_name']}}<br/>
+                        {{variants_hotels[i]['review_score']}}
+                        {{variants_hotels[i]['review_score_word']}}<br/>
+                        {{list_description[i]}}<br/>
+                        Адреса: {{variants_hotels[i]['address']}}<br/>
+                        Дистанція до центру міста: {{variants_hotels[i]['distance_to_cc']}} км<br/>
+                        Мінімальна ціна:{{variants_hotels[i]['min_total_price']}} {{variants_hotels[i]['currency_code']}}<br/>
+                        <a href="{{variants_hotels[i]['url']}}" style="color: red">Забронювати номер</a>
+                    </figcaption>
+                    </figure>
+            </div>
+{#            <p style="margin-top: -26%;margin-left: 45%; font-size: 20px; font-family:Times, Times New Roman, serif">{{variants_hotels[i]['accommodation_type_name']}} {{variants_hotels[i]['hotel_name']}}</p>#}
+{#            <p style="margin-left: 45%; font-size: 20px; font-family:Times, Times New Roman, serif">Рейтинг: {{variants_hotels[i]['review_score']}} {{variants_hotels[i]['review_score_word']}} </p>#}
+{#            <p style="margin-left: 45%; font-size: 20px; font-family:Times, Times New Roman, serif">{{variants_hotels[i]['unit_configuration_label']}}</p>#}
+{#            <p style="margin-left: 45%; font-size: 20px; font-family:Times, Times New Roman, serif">Адреса: {{variants_hotels[i]['address']}}</p>#}
+{#            <p style="margin-left: 45%; font-size: 20px; font-family:Times, Times New Roman, serif">Дистанція до центру міста: {{variants_hotels[i]['distance_to_cc']}} км</p>#}
+{#            <p style="margin-left: 45%; font-size: 20px; font-family:Times, Times New Roman, serif">Мінімальна ціна:{{variants_hotels[i]['min_total_price']}} {{variants_hotels[i]['currency_code']}} </p>#}
+{#            <a href="{{variants_hotels[i]['url']}}" style="margin-left: 45%; font-size: 20px; font-family:Times, Times New Roman, serif">Посилання для більш детальної інформації</a>#}
+            <div style=" margin-top: -26%; margin-left: 1%" >
+                <img src="https://media2.giphy.com/media/mIMsLsQTJzAn6/giphy.gif?cid=790b7611b474ebf0a8158ce5b81a4e3bc77a9f6c84a2322f&rid=giphy.gif" alt="funny GIF" >
+            </div>
+
+
+
+            <div  style="margin-left: 3%; height: 30%; margin-top: 2%; width: 25%; background-color: #f69a73">
+
+              <p style="font-size: 20px; font-family:Times, Times New Roman, serif; background-color: #1161ee; text-align: center; border-radius: 7px ">Шлях автомобілем:</p>
+                <p style=" font-size: 20px; font-family:Times, Times New Roman, serif; background-color: yellow; margin-top: -6%; border-radius: 7px">Відстань: {{dictionary['auto']['distance'][i]}} км<br> Час в дорозі: {{dictionary['auto']['time'][i]}} годин</p>
+            </div>
+            <div style="margin-left: 73%; margin-top: -29.5%" >
+                <img src="https://media3.giphy.com/media/30pykuIQHxzQsfefte/giphy.gif?cid=790b76119af53d1d9bac7b1dc02d5f3e77a524d6738aac07&rid=giphy.gif" alt="funny GIF" >
+            </div>
+            <div  style="margin-left: 72%; margin-top: 2%; height: 30%; width: 25%; background-color: #f69a73">
+              <p style="font-size: 20px; font-family:Times, Times New Roman, serif; text-align: center; color: white; border-radius: 7px; background-color: #000000;">Шлях пішки:</p>
+                <p style=" font-size: 20px; font-family:Times, Times New Roman, serif; background-color: red; margin-top: -6%; border-radius: 7px">Відстань: {{dictionary['foot']['distance'][i]}} км<br> Час в дорозі: {{dictionary['foot']['time'][i]}} годин</p>
+            </div>
+
+
+
+        </div>
+    </details>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

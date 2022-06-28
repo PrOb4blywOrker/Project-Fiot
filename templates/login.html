@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Профіль</title>
+{% endblock %}
+{% block body %}
+{% if not current_user.is_authenticated %}
+
+<form class="login-wrap" method="post">
+  <div class="login-html">
+     {% if checked == 'checked_sign_in' %}
+    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" >Увійти</label>
+    <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Зареєструватися</label>
+    {% endif %}
+    {% if checked == 'checked_sign_up' %}
+    <input id="tab-1" type="radio" name="tab" class="sign-in" ><label for="tab-1" class="tab">Увійти</label>
+    <input id="tab-2" type="radio" name="tab" class="sign-up" checked><label for="tab-2" class="tab" >Зареєструватися</label>
+    {% endif %}
+    <div class="login-form">
+      <div class="sign-in-htm">
+
+        <div class="group">
+          <label for="user_log_in" class="label">Ім'я користувача</label>
+          <input name="user_log_in" type="text" class="input">
+        </div>
+        <div class="group">
+          <label for="pass_log_in" class="label">Пароль</label>
+          <input name="pass_log_in" type="password" class="input" data-type="password">
+        </div>
+        <div class="group">
+          <input type="submit" class="button" value="Увійти">
+        </div>
+
+
+      </div>
+      <div class="sign-up-htm">
+          <div class="group">
+              <select name="select_gender" style="background:rgba(40,57,101,.9);">
+                  <option value="Pan">Пан</option>
+                  <option value="Pani">Пані</option>
+              </select>
+          </div>
+        <div class="group">
+          <label for="user_sign_up" class="label">Ім'я користувача</label>
+          <input name="user_sign_up" type="text" class="input">
+        </div>
+        <div class="group">
+          <label for="pass_sign_up" class="label">Пароль</label>
+          <input name="pass_sign_up" type="password" class="input" data-type="password">
+        </div>
+          <div class="group">
+          <label for="phone_sign_up" class="label">Телефон</label>
+          <input name="phone_sign_up" type="text" class="input" >
+        </div>
+        <div class="group">
+          <label for="email_sign_up" class="label">Адреса електронної пошти</label>
+          <input name="email_sign_up" type="text" class="input">
+        </div>
+
+        <div class="group">
+          <input type="submit" class="button" value="Зареєструватися">
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endif %}
+{% if current_user.is_authenticated %}
+  <div class="container py-5 h-90">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-6 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="row g-0">
+            <div class="col-md-4 gradient-custom text-center text-white"
+              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                {% if gender == 'Pan' %}
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
+                alt="Avatar" class="img-fluid my-5" style="width: 100px;" />
+                    {% endif %}
+                {% if gender == 'Pani' %}
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                    alt="Avatar" class="img-fluid my-5" style="width: 100px;" />
+                        {% endif %}
+                <a href="/logout" class="nav-link text-black" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                  <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                </svg>
+                  Вийти з акаунту
+              </a>
+              <i class="far fa-edit mb-5"></i>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>{{ gender.value }} {{ name }}</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Електронна пошта</h6>
+                    <p class="text-muted">{{ email}}</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Телефон</h6>
+                      {% if not phone %}
+                    <p class="text-muted">- </p>
+                          {% endif %}
+                        {% if  phone %}
+                            <p class="text-muted">{{phone }} </p>
+                        {% endif %}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+
+
+{% endblock %}
